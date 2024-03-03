@@ -1,6 +1,7 @@
 TARGET=main
 MCU=atmega48a
-SOURCES=main.c
+# SOURCES=main.c
+SOURCES := $(shell find . -name '*.c')
 INCLUDES=-I.
 MCU_dude=m48
 
@@ -13,7 +14,8 @@ PROGRAMMER=avrispmkII
 BAUD=-B115200
 
 #Ab hier nichts verändern
-OBJECTS=$(SOURCES:.c=.o)
+# OBJECTS=$(SOURCES:.c=.o)
+OBJECTS := $(SOURCES:.c=.o)
 CFLAGS=-c -Og 
 LDFLAGS=
 
@@ -29,7 +31,9 @@ $(TARGET).hex: $(TARGET).elf
 $(TARGET)_eeprom.hex: $(TARGET).elf
 	avr-objcopy -O ihex -j .eeprom --change-section-lma .eeprom=1 $(TARGET).elf $(TARGET)_eeprom.hex
 
-$(TARGET).elf: $(SOURCES:.c=.o) $(LIBRARY:.c=.o)
+# $(TARGET).elf: $(SOURCES:.c=.o) $(LIBRARY:.c=.o)
+# 	avr-gcc $(LDFLAGS) -mmcu=$(MCU) $^ -o $(TARGET).elf
+$(TARGET).elf: $(OBJECTS)
 	avr-gcc $(LDFLAGS) -mmcu=$(MCU) $^ -o $(TARGET).elf
 
 .c.o:
@@ -42,11 +46,13 @@ program:
 	avrdude -p$(MCU_dude) $(PORT) $(BAUD) -c$(PROGRAMMER) -Uflash:w:$(TARGET).hex:a -v
 
 clean_tmp:
-	rm -rf *.o
+# 	rm -rf *.o
+	find . -type f -name '*.o' -delete
 	rm -rf *.elf
 
 clean:
-	rm -rf *.o
+# 	rm -rf *.o
+	find . -type f -name '*.o' -delete
 	rm -rf *.elf
 	rm -rf *.hex
 
