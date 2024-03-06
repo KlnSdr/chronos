@@ -17,6 +17,9 @@ typedef struct PhysicalPin {
     uint8_t pin;
 } PhysicalPin;
 
+volatile uint8_t hour = 0;
+volatile uint8_t minutes = 0;
+
 volatile bool portHour[5] = {LOW, LOW, LOW, LOW, LOW};
 volatile bool portMinute[6] = {LOW, LOW, LOW, LOW, LOW, LOW};
 PhysicalPin physicalHour[5] = {{D, 5},
@@ -111,6 +114,8 @@ void resetLED() {
 }
 
 void setHour(uint8_t value) {
+    hour = value;
+
     for (int i = 0; i < 5; i++) {
         if ((value >> i) & 1) {
             portHour[i] = HIGH;
@@ -121,6 +126,7 @@ void setHour(uint8_t value) {
 }
 
 void setMinute(uint8_t value) {
+    minutes = value;
     for (int i = 0; i < 6; i++) {
         if ((value >> i) & 1) {
             portMinute[i] = HIGH;
