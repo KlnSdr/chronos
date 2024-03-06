@@ -37,19 +37,22 @@ void display();
 
 void resetLED();
 
+void setHour(uint8_t);
+void setMinute(uint8_t);
+
 
 int main() {
-
     initPins();
-    portHour[1] = HIGH;
-    portHour[3] = HIGH;
+
+    setHour(9);
+    setMinute(24);
+
     while (true) {
         _delay_ms(20);
         display();
         _delay_us(120);
         resetLED();
     }
-
 
     return 0;
 }
@@ -90,20 +93,39 @@ void setPin(bool value, PhysicalPin pin) {
 }
 
 void display() {
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 5; ++i) {
         setPin(portHour[i], physicalHour[i]);
     }
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 6; ++i) {
         setPin(portMinute[i], physicalMinute[i]);
     }
 }
 
 void resetLED() {
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 5; ++i) {
         setPin(false, physicalHour[i]);
     }
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 6; ++i) {
         setPin(false, physicalMinute[i]);
     }
 }
 
+void setHour(uint8_t value) {
+    for (int i = 0; i < 5; i++) {
+        if ((value >> i) & 1) {
+            portHour[i] = HIGH;
+        } else {
+            portHour[i] = LOW;
+        }
+    }
+}
+
+void setMinute(uint8_t value) {
+    for (int i = 0; i < 6; i++) {
+        if ((value >> i) & 1) {
+            portMinute[i] = HIGH;
+        } else {
+            portMinute[i] = LOW;
+        }
+    }
+}
