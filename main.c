@@ -5,7 +5,9 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 
+volatile uint8_t prellRight = 0;
 
 void initPins();
 
@@ -39,6 +41,7 @@ void setPin(bool, PhysicalPin);
 void display();
 
 void resetLED();
+void pushRightButton();
 
 void setHour(uint8_t);
 void setMinute(uint8_t);
@@ -134,4 +137,15 @@ void setMinute(uint8_t value) {
             portMinute[i] = LOW;
         }
     }
+}
+
+ISR(INT1_vect) {
+    if (prellRight == 0) {
+        prellRight = 50;
+        pushRightButton();
+    }
+}
+
+void pushRightButton(){
+
 }
