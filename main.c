@@ -55,7 +55,6 @@ void resetLED();
 void rightButtonPressed();
 void middleButtonPressed();
 void leftButtonPressed();
-void middleButtonPressed();
 
 void setHour(uint8_t);
 void setMinute(uint8_t);
