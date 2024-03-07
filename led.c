@@ -1,4 +1,4 @@
-#include "io.h"
+#include "led.h"
 
 volatile bool portHour[5] =     {LOW, LOW, LOW, LOW, LOW};
 volatile bool portMinute[6] =   {LOW, LOW, LOW, LOW, LOW, LOW};
@@ -20,7 +20,7 @@ PhysicalPin physicalMinute[6] = {
 };
 
 void initIOPins() {
-    //LED
+    // set led pins to output
     DDRB |= 1 << 0;
 
     DDRC = 0x3F;
@@ -29,11 +29,6 @@ void initIOPins() {
     DDRD |= 1 << 5;
     DDRD |= 1 << 6;
     DDRD |= 1 << 7;
-
-    // Buttons
-    PORTD |= 1 << 1;
-    PORTD |= 1 << 2;
-    PORTD |= 1 << 3;
 }
 
 void setPin(bool value, PhysicalPin pin) {

@@ -16,7 +16,7 @@ BAUD=-B115200
 #Ab hier nichts verändern
 # OBJECTS=$(SOURCES:.c=.o)
 OBJECTS := $(SOURCES:.c=.o)
-CFLAGS=-c -Og 
+CFLAGS=-c -Og
 LDFLAGS=
 
 all: hex eeprom
