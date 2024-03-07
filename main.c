@@ -30,6 +30,7 @@ typedef struct PhysicalPin {
 
 volatile uint8_t hour = 0;
 volatile uint8_t minutes = 0;
+volatile uint8_t seconds = 0;
 
 volatile enum State state = DEFAULT;
 
@@ -63,6 +64,16 @@ void setMinute(uint8_t);
 int main() {
     EIMSK |= (1 << INT0);
     EIMSK |= (1 << INT1);
+
+    GTCCR |= (1 << TSM) | (1 << PSRASY);
+    ASSR |= (1 << AS2);
+    TCCR2A = (1 << WGM21);
+    TCCR2B |= (1 << CS22) | (1 << CS21);
+
+    OCR2A = 128 - 1;
+    TIMSK2 |= (1 << OCIE2A);
+    GTCCR &= ~(1 << TSM);
+
     initPins();
 
     setHour(9);
@@ -183,6 +194,17 @@ ISR(INT1_vect) {
         prellRight = 50;
         rightButtonPressed();
     }
+}
+
+ISR(TIMER2_COMPA_vect) {
+    TCCR2B = TCCR2B;
+    if (minutes == 59) {
+        setMinute(0);
+    } else {
+        setMinute(minutes + 1);
+    }
+
+    while (ASSR & ((1 << TCN2UB) | (1 << OCR2AUB) | (1 << OCR2BUB) | (1 << TCR2AUB) | (1 << TCR2BUB)));
 }
 
 void rightButtonPressed(){
