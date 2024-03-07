@@ -8,6 +8,7 @@
 #include <avr/interrupt.h>
 
 volatile uint8_t prellRight = 0;
+volatile uint8_t prellLeft = 0;
 
 void initPins();
 
@@ -41,7 +42,8 @@ void setPin(bool, PhysicalPin);
 void display();
 
 void resetLED();
-void pushRightButton();
+void rightButtonPressed();
+void leftButtonPressed();
 
 void setHour(uint8_t);
 void setMinute(uint8_t);
@@ -58,6 +60,13 @@ int main() {
 
         if (prellRight) {
             prellRight--;
+        }
+        if (prellLeft) {
+            prellLeft--;
+        }
+
+        if (PIND & (1 << 1)) {} else {
+            leftButtonPressed();
         }
         
         _delay_ms(20);
@@ -150,14 +159,25 @@ void setMinute(uint8_t value) {
 ISR(INT1_vect) {
     if (prellRight == 0) {
         prellRight = 50;
-        pushRightButton();
+        rightButtonPressed();
     }
 }
 
-void pushRightButton(){
+void rightButtonPressed(){
     if(minutes == 59){
         setMinute(0);
     }else{
         setMinute(minutes+1);
+    }
+}
+
+void leftButtonPressed(){
+    if (prellLeft == 0) {
+        prellLeft = 50;
+        if(minutes == 0){
+            setMinute(59);
+        }else{
+            setMinute(minutes-1);
+        }
     }
 }
