@@ -16,6 +16,13 @@ void initPins();
 enum Port {
     B, C, D
 };
+
+enum State {
+    DEFAULT,
+    SET_HOUR,
+    SET_MINUTE
+};
+
 typedef struct PhysicalPin {
     enum Port port;
     uint8_t pin;
@@ -23,6 +30,8 @@ typedef struct PhysicalPin {
 
 volatile uint8_t hour = 0;
 volatile uint8_t minutes = 0;
+
+volatile enum State state = DEFAULT;
 
 volatile bool portHour[5] = {LOW, LOW, LOW, LOW, LOW};
 volatile bool portMinute[6] = {LOW, LOW, LOW, LOW, LOW, LOW};
@@ -178,24 +187,50 @@ ISR(INT1_vect) {
 }
 
 void rightButtonPressed(){
-    if(minutes == 59){
-        setMinute(0);
-    }else{
-        setMinute(minutes+1);
+    if (state == SET_HOUR) {
+        if(hour == 23){
+            setHour(0);
+        }else{
+            setHour(hour+1);
+        }
+    } else if (state == SET_MINUTE) {
+        if (minutes == 59) {
+            setMinute(0);
+        } else {
+            setMinute(minutes + 1);
+        }
     }
 }
 
 void leftButtonPressed(){
     if (prellLeft == 0) {
         prellLeft = 50;
-        if(minutes == 0){
-            setMinute(59);
-        }else{
-            setMinute(minutes-1);
+        if (state == SET_HOUR) {
+            if(hour == 0){
+                setHour(23);
+            }else{
+                setHour(hour-1);
+            }
+        } else if (state == SET_MINUTE) {
+            if (minutes == 0) {
+                setMinute(59);
+            } else {
+                setMinute(minutes - 1);
+            }
         }
     }
 }
 
 void middleButtonPressed(){
-    setMinute(0);
+    switch (state) {
+        case DEFAULT:
+            state = SET_HOUR;
+            break;
+        case SET_HOUR:
+            state = SET_MINUTE;
+            break;
+        case SET_MINUTE:
+            state = DEFAULT;
+            break;
+    }
 }
