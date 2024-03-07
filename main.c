@@ -48,12 +48,18 @@ void setMinute(uint8_t);
 
 
 int main() {
+    EIMSK |= (1 << INT1);
     initPins();
 
     setHour(9);
     setMinute(24);
 
     while (true) {
+
+        if (prellRight) {
+            prellRight--;
+        }
+        
         _delay_ms(20);
         display();
         _delay_us(120);
@@ -78,6 +84,8 @@ void initPins() {
     PORTD |= 1 << 1;
     PORTD |= 1 << 2;
     PORTD |= 1 << 3;
+
+    sei();
 }
 
 void setPin(bool value, PhysicalPin pin) {
@@ -147,5 +155,9 @@ ISR(INT1_vect) {
 }
 
 void pushRightButton(){
-
+    if(minutes == 59){
+        setMinute(0);
+    }else{
+        setMinute(minutes+1);
+    }
 }
