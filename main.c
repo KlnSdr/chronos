@@ -42,20 +42,16 @@ int main() {
         if (PIND & (1 << 1)) {} else {
             leftButtonPressed();
         }
-        
-        _delay_ms(18);
-        displayTop();
-//        resetLedTop();
-        displayBottom();
-//        resetLedBottom();
-//        _delay_us(90);
 
+        _delay_ms(18);
+        displayHours();
+        displayMinutes();
     }
 
     return 0;
 }
 
-ISR(TIMER2_COMPA_vect){
+ISR(TIMER2_COMPA_vect) {
     TCCR2B = TCCR2B;
     if (minutes == 59) {
         setMinute(0);

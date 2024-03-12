@@ -26,8 +26,6 @@ PhysicalPin physicalMinute[6];
 
 void initIOPins();
 void setPin(bool, PhysicalPin);
-void displayTop();
-void displayBottom();
-void resetLedTop();
-void resetLedBottom();
+void displayHours();
+void displayMinutes();
 #endif
