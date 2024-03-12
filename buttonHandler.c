@@ -13,12 +13,16 @@ void rightButtonPressed(){
         } else {
             setMinute(minutes + 1);
         }
+    } else if (state == SLEEP) {
+        state = DEFAULT;
+    } else if (state == DEFAULT) {
+        state = SLEEP;
     }
 }
 
 void leftButtonPressed(){
     if (prellLeft == 0) {
-        prellLeft = 50;
+        prellLeft = 13;
         if (state == SET_HOUR) {
             if(hour == 0){
                 setHour(23);

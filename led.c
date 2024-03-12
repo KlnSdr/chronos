@@ -1,3 +1,5 @@
+#define F_CPU 1000000UL
+
 #include "led.h"
 
 volatile bool portHour[5] =     {LOW, LOW, LOW, LOW, LOW};
@@ -49,19 +51,29 @@ void setPin(bool value, PhysicalPin pin) {
 
 }
 
-void display() {
+void displayTop() {
     for (int i = 0; i < 5; ++i) {
         setPin(portHour[i], physicalHour[i]);
-    }
-    for (int i = 0; i < 6; ++i) {
-        setPin(portMinute[i], physicalMinute[i]);
+        _delay_us(18);
+        setPin(false, physicalHour[i]);
     }
 }
 
-void resetLED() {
+void displayBottom() {
+    for (int i = 0; i < 6; ++i) {
+        setPin(portMinute[i], physicalMinute[i]);
+        _delay_us(15);
+        setPin(false, physicalMinute[i]);
+    }
+}
+
+
+void resetLedTop() {
     for (int i = 0; i < 5; ++i) {
         setPin(false, physicalHour[i]);
     }
+}
+void resetLedBottom() {
     for (int i = 0; i < 6; ++i) {
         setPin(false, physicalMinute[i]);
     }

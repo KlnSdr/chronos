@@ -29,14 +29,16 @@ void prellButtons() {
 
 ISR(INT0_vect) {
     if (prellMiddle == 0) {
-        prellMiddle= 50;
+        prellMiddle = 13;
         middleButtonPressed();
     }
 }
 
 ISR(INT1_vect) {
-    if (prellRight == 0) {
-        prellRight = 50;
+    /*if (state == SLEEP) {
+        state = DEFAULT;
+    } else*/ if (prellRight == 0) {
+        prellRight = 13;
         rightButtonPressed();
     }
 }

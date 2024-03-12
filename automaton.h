@@ -2,6 +2,7 @@
 #define CHRONOS_AUTOMATON_H
 
 enum State {
+    SLEEP,
     DEFAULT,
     SET_HOUR,
     SET_MINUTE

@@ -4,6 +4,7 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include "buttonHandler.h"
+#include "automaton.h"
 
 extern volatile uint8_t prellRight;
 extern volatile uint8_t prellMiddle;

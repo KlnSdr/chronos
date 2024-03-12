@@ -6,6 +6,7 @@
 
 #include <avr/io.h>
 #include "bool.h"
+#include <util/delay.h>
 
 typedef enum Port {
     B, C, D
@@ -23,6 +24,8 @@ PhysicalPin physicalMinute[6];
 
 void initIOPins();
 void setPin(bool, PhysicalPin);
-void display();
-void resetLED();
+void displayTop();
+void displayBottom();
+void resetLedTop();
+void resetLedBottom();
 #endif
