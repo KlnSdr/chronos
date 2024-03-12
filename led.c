@@ -1,5 +1,3 @@
-#define F_CPU 1000000UL
-
 #include "led.h"
 
 volatile bool portHour[5] =     {LOW, LOW, LOW, LOW, LOW};

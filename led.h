@@ -1,6 +1,8 @@
 #ifndef IO_H
 #define IO_H
 
+#define F_CPU 1000000UL
+
 #define LOW false
 #define HIGH true
 
