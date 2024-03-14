@@ -50,5 +50,8 @@ void middleButtonPressed(){
         case SET_MINUTE:
             state = DEFAULT;
             break;
+        case SLEEP:
+            state = DEFAULT;
+            break;
     }
 }

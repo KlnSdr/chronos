@@ -14,12 +14,25 @@ void initTimer() {
 
 ISR(TIMER2_COMPA_vect) {
     TCCR2B = TCCR2B;
-    if (minutes == 59) {
-        setMinute(0);
-        setHour(hour + 1);
-    } else {
-        setMinute(minutes + 1);
+
+    seconds++;
+
+    if (seconds == 60) {
+        seconds = 0;
+        minutes++;
     }
+
+    if (minutes == 60) {
+        minutes = 0;
+        hour++;
+    }
+
+    if (hour == 24) {
+        setHour(0);
+    }
+
+    setMinute(minutes);
+    setHour(hour);
 
     if (state == DEFAULT) {
         if (turnOff == 10) {

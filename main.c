@@ -14,8 +14,8 @@ int main() {
     initButtons();
     sei();
 
-    setHour(9);
-    setMinute(0);
+    setHour(1);
+    setMinute(1);
 
     state = DEFAULT;
 

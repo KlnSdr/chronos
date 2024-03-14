@@ -11,7 +11,7 @@ PROGRAMMER=avrispmkII
 #auskommentieren für automatische Wahl
 # PORT=-P /dev/ttyACM0
 # BAUD=-b19200
-BAUD=-B115200
+BAUD=-B125kHz
 
 #Ab hier nichts verändern
 # OBJECTS=$(SOURCES:.c=.o)

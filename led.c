@@ -51,16 +51,16 @@ void setPin(bool value, PhysicalPin pin) {
 
 void displayHours() {
     for (int i = 0; i < 5; ++i) {
-        setPin(portHour[i], physicalHour[i]);
+        setPin(portHour[i], physicalHour[4 - i]);
         _delay_us(18);
-        setPin(LOW, physicalHour[i]);
+        setPin(LOW, physicalHour[4 - i]);
     }
 }
 
 void displayMinutes() {
     for (int i = 0; i < 6; ++i) {
-        setPin(portMinute[i], physicalMinute[i]);
+        setPin(portMinute[i], physicalMinute[5 - i]);
         _delay_us(15);
-        setPin(LOW, physicalMinute[i]);
+        setPin(LOW, physicalMinute[5 - i]);
     }
 }
