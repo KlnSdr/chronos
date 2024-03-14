@@ -12,6 +12,14 @@ void initTimer() {
     GTCCR &= ~(1 << TSM);
 }
 
+void stopTimer() {
+    GTCCR |= (1 << TSM) | (1 << PSRASY);
+}
+
+void startTimer() {
+    GTCCR &= ~(1 << TSM);
+}
+
 ISR(TIMER2_COMPA_vect) {
     TCCR2B = TCCR2B;
 

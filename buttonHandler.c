@@ -42,12 +42,15 @@ void leftButtonPressed(){
 void middleButtonPressed(){
     switch (state) {
         case DEFAULT:
+            stopTimer();
             state = SET_HOUR;
             break;
         case SET_HOUR:
             state = SET_MINUTE;
             break;
         case SET_MINUTE:
+            seconds = 0;
+            startTimer();
             state = DEFAULT;
             break;
         case SLEEP:

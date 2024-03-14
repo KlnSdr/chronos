@@ -5,6 +5,7 @@
 #include "button.h"
 #include "clock.h"
 #include <avr/sleep.h>
+#include "timer.h"
 
 void rightButtonPressed();
 void middleButtonPressed();

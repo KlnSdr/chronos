@@ -8,5 +8,7 @@
 extern volatile uint8_t turnOff;
 
 void initTimer();
+void stopTimer();
+void startTimer();
 
 #endif //CHRONOS_TIMER_H
