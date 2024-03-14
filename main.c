@@ -7,11 +7,19 @@
 #include "automaton.h"
 #include "timer.h"
 #include <util/delay.h>
+#include <avr/power.h>
 
 int main() {
     initTimer();
     initIOPins();
     initButtons();
+
+    power_adc_disable();
+    power_timer0_disable();
+    power_timer1_disable();
+    power_twi_disable();
+    power_usart0_disable();
+
     sei();
 
     setHour(1);
