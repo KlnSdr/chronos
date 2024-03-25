@@ -1,5 +1,6 @@
 #include "timer.h"
 volatile uint8_t turnOff = 0;
+volatile uint16_t secondChance = 0;
 
 void initTimer() {
     GTCCR |= (1 << TSM) | (1 << PSRASY);
@@ -24,6 +25,12 @@ ISR(TIMER2_COMPA_vect) {
     TCCR2B = TCCR2B;
 
     seconds++;
+    secondChance++;
+
+    if (secondChance > 24000) {
+        seconds--;
+        secondChance = 0;
+    }
 
     if (seconds == 60) {
         seconds = 0;
